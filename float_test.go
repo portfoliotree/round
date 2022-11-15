@@ -10,13 +10,13 @@ import (
 	"github.com/portfoliotree/round"
 )
 
-func TestFloatsRecursively(t *testing.T) {
+func TestRecursive(t *testing.T) {
 	t.Run("float64", func(t *testing.T) {
 		o := NewWithT(t)
 
 		float := 9.87654321
 
-		err := round.FloatsRecursively(&float, 3)
+		err := round.Recursive(&float, 3)
 		o.Expect(err).NotTo(HaveOccurred())
 
 		o.Expect(float).To(Equal(9.877))
@@ -28,7 +28,7 @@ func TestFloatsRecursively(t *testing.T) {
 		float := 9.87654321
 		data := &float
 
-		err := round.FloatsRecursively(&data, 3)
+		err := round.Recursive(&data, 3)
 		o.Expect(err).NotTo(HaveOccurred())
 
 		o.Expect(float).To(Equal(9.877))
@@ -43,7 +43,7 @@ func TestFloatsRecursively(t *testing.T) {
 			Float: 9.87654321,
 		}
 
-		err := round.FloatsRecursively(&data, 3)
+		err := round.Recursive(&data, 3)
 		o.Expect(err).NotTo(HaveOccurred())
 
 		o.Expect(data.Float).To(Equal(9.877))
@@ -58,7 +58,7 @@ func TestFloatsRecursively(t *testing.T) {
 			3.87654321,
 		}
 
-		err := round.FloatsRecursively(&data, 3)
+		err := round.Recursive(&data, 3)
 		o.Expect(err).NotTo(HaveOccurred())
 
 		o.Expect(data).To(Equal([]float64{
@@ -78,7 +78,7 @@ func TestFloatsRecursively(t *testing.T) {
 			3.87654321,
 		}
 
-		err := round.FloatsRecursively(&data, 3)
+		err := round.Recursive(&data, 3)
 		o.Expect(err).NotTo(HaveOccurred())
 
 		o.Expect(data).To(Equal([size]float64{
@@ -97,7 +97,7 @@ func TestFloatsRecursively(t *testing.T) {
 			"c": 3.87654321,
 		}
 
-		err := round.FloatsRecursively(&data, 3)
+		err := round.Recursive(&data, 3)
 		o.Expect(err).NotTo(HaveOccurred())
 
 		o.Expect(data).To(Equal(map[string]float64{
@@ -116,7 +116,7 @@ func TestFloatsRecursively(t *testing.T) {
 			float: 9.87654321,
 		}
 
-		err := round.FloatsRecursively(&data, 3)
+		err := round.Recursive(&data, 3)
 		o.Expect(err).NotTo(HaveOccurred())
 
 		o.Expect(data.float).To(Equal(9.87654321))
@@ -135,7 +135,7 @@ func TestFloatsRecursively(t *testing.T) {
 			},
 		}
 
-		err := round.FloatsRecursively(&data, 3)
+		err := round.Recursive(&data, 3)
 		o.Expect(err).NotTo(HaveOccurred())
 
 		o.Expect(data.Floats).To(Equal([]float64{
@@ -161,7 +161,7 @@ func TestFloatsRecursively(t *testing.T) {
 			Ptr: &n,
 		}
 
-		err := round.FloatsRecursively(&data, 3)
+		err := round.Recursive(&data, 3)
 		o.Expect(err).NotTo(HaveOccurred())
 
 		o.Expect(data.Floats).To(Equal([]float64{
@@ -177,7 +177,7 @@ func TestFloatsRecursively(t *testing.T) {
 
 		float := math.Inf(1)
 
-		err := round.FloatsRecursively(&float, 3)
+		err := round.Recursive(&float, 3)
 		o.Expect(err).NotTo(HaveOccurred())
 
 		o.Expect(float).To(Equal(math.Inf(1)),
@@ -189,7 +189,7 @@ func TestFloatsRecursively(t *testing.T) {
 
 		float := math.Inf(-1)
 
-		err := round.FloatsRecursively(&float, 3)
+		err := round.Recursive(&float, 3)
 		o.Expect(err).NotTo(HaveOccurred())
 
 		o.Expect(float).To(Equal(math.Inf(-1)),
@@ -201,7 +201,7 @@ func TestFloatsRecursively(t *testing.T) {
 
 		float := math.Inf(-1)
 
-		err := round.FloatsRecursively(&float, 3)
+		err := round.Recursive(&float, 3)
 		o.Expect(err).NotTo(HaveOccurred())
 
 		o.Expect(float).To(Equal(math.Inf(-1)),
@@ -220,7 +220,7 @@ func TestFloatsRecursively(t *testing.T) {
 			},
 		}
 
-		err := round.FloatsRecursively(&data, 0)
+		err := round.Recursive(&data, 0)
 		o.Expect(err).To(MatchError(
 			And(
 				ContainSubstring("not a number"),
@@ -236,7 +236,7 @@ func TestFloatsRecursively(t *testing.T) {
 			Float float64 `precision:"abc"`
 		}
 
-		err := round.FloatsRecursively(&data, 0)
+		err := round.Recursive(&data, 0)
 		o.Expect(err).To(MatchError(
 			ContainSubstring("precision tag"),
 		))
@@ -250,7 +250,7 @@ func TestFloatsRecursively(t *testing.T) {
 		}
 		data.Float = 987.654
 
-		err := round.FloatsRecursively(&data, 0)
+		err := round.Recursive(&data, 0)
 		o.Expect(err).NotTo(HaveOccurred())
 
 		o.Expect(data.Float).To(Equal(float64(990)))

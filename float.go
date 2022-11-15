@@ -9,6 +9,7 @@ import (
 	"strings"
 )
 
+// Decimal rounds a floating point number to an expected decimal rounded floating point number.
 func Decimal(num float64, precision int) float64 {
 	shift := math.Pow(10, float64(precision))
 	shifted := num * shift
@@ -16,7 +17,28 @@ func Decimal(num float64, precision int) float64 {
 	return float64(rounded) / shift
 }
 
-func FloatsRecursively(ptr interface{}, precision int) error {
+// Recursive navigates ptr using reflection to round floats appropriately
+// It defaults to using the given precision; however, it consults a struct tag
+// as it navigates the fields. It uses the struct tag value for all values in a field
+// unless it encounters another struct tag.
+//
+//		type Data struct {
+//	      // Field1 will be rounded to the value "precision" passed to Recursive
+//		  Field1 float64
+//
+//	      // Field2 will be rounded to 2 decimal places
+//		  Field2 float64 `precision:"2"`
+//
+//	      // Field3 will have the slice elements rounded to 3 decimal places
+//		  Field3 []float64 `precision:"3"`
+//
+//	      // Percent will be multiplied by 100 and then rounded to 2 decimal places
+//	      // for example, "0.123401" would become "12.34"
+//		  Field3 []float64 `precision:"2"`
+//		}
+//
+// The value of ptr must be a pointer.
+func Recursive(ptr interface{}, precision int) error {
 	val := reflect.ValueOf(ptr)
 	if val.Kind() != reflect.Ptr {
 		panic("v must be a pointer")
