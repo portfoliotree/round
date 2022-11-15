@@ -1,6 +1,7 @@
 package round_test
 
 import (
+	"fmt"
 	"math"
 	"testing"
 
@@ -254,4 +255,24 @@ func TestFloatsRecursively(t *testing.T) {
 
 		o.Expect(data.Float).To(Equal(float64(990)))
 	})
+}
+
+func ExampleDecimal() {
+	const pi = 3.14159265359
+
+	// rounding up the 4th decimal place
+	piToFourDigits := round.Decimal(pi, 4)
+	fmt.Printf("%g == %g is %t\n", piToFourDigits, 3.1416, piToFourDigits == 3.1416)
+	fmt.Printf("%g < %g is %t\n", piToFourDigits, pi, piToFourDigits < 3.1416)
+
+	// rounding down the 2nd decimal place
+	piToTwoDigits := round.Decimal(pi, 2)
+	fmt.Printf("%g < %g is %t\n", piToTwoDigits, pi, piToTwoDigits < pi)
+
+	fmt.Printf("%q\n", fmt.Sprintf("%g", piToTwoDigits))
+
+	// Output: 3.1416 == 3.1416 is true
+	// 3.1416 < 3.14159265359 is false
+	// 3.14 < 3.14159265359 is true
+	// "3.14"
 }
