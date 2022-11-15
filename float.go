@@ -39,10 +39,6 @@ func Decimal(num float64, precision int) float64 {
 //
 // The value of ptr must be a pointer.
 func Recursive(ptr interface{}, precision int) error {
-	val := reflect.ValueOf(ptr)
-	if val.Kind() != reflect.Ptr {
-		panic("v must be a pointer")
-	}
 	return floatsRecursively(val, precision, false)
 }
 
