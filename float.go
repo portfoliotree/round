@@ -39,7 +39,7 @@ func Decimal(num float64, precision int) float64 {
 //
 // The value of ptr must be a pointer.
 func Recursive(ptr interface{}, precision int) error {
-	return floatsRecursively(val, precision, false)
+	return floatsRecursively(reflect.ValueOf(ptr), precision, false)
 }
 
 func floatsRecursively(v reflect.Value, parentPrecision int, isPercent bool) error {
