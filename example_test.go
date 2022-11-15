@@ -27,7 +27,7 @@ func Example() {
 	data.List = []float64{7, 6.656}
 
 	fmt.Printf("before: %s\n", data.String())
-	_ = round.FloatsRecursively(&data, 2)
+	_ = round.Recursive(&data, 2)
 	fmt.Printf("after:  %s", data.String())
 
 	// Output: before: {
