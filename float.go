@@ -109,7 +109,8 @@ func floatsRecursively(v reflect.Value, parentPrecision int, isPercent bool) err
 		float = Decimal(float, parentPrecision)
 
 		v.SetFloat(float)
+	default:
+		return nil
 	}
-
 	return nil
 }

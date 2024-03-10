@@ -13,7 +13,6 @@ import (
 
 func TestRecursive(t *testing.T) {
 	t.Run("float64", func(t *testing.T) {
-
 		float := 9.87654321
 
 		err := round.Recursive(&float, 3)
@@ -23,7 +22,6 @@ func TestRecursive(t *testing.T) {
 	})
 
 	t.Run("float64 ptr", func(t *testing.T) {
-
 		float := 9.87654321
 		data := &float
 
@@ -34,7 +32,6 @@ func TestRecursive(t *testing.T) {
 	})
 
 	t.Run("field", func(t *testing.T) {
-
 		data := struct {
 			Float float64
 		}{
@@ -48,7 +45,6 @@ func TestRecursive(t *testing.T) {
 	})
 
 	t.Run("slice", func(t *testing.T) {
-
 		data := []float64{
 			1.87654321,
 			2.87654321,
@@ -66,7 +62,6 @@ func TestRecursive(t *testing.T) {
 	})
 
 	t.Run("array", func(t *testing.T) {
-
 		const size = 3
 		data := [size]float64{
 			1.87654321,
@@ -84,7 +79,6 @@ func TestRecursive(t *testing.T) {
 	})
 
 	t.Run("map values", func(t *testing.T) {
-
 		data := map[string]float64{
 			"a": 1.87654321,
 			"b": 2.87654321,
@@ -102,7 +96,6 @@ func TestRecursive(t *testing.T) {
 	})
 
 	t.Run("private field", func(t *testing.T) {
-
 		data := struct {
 			float float64
 		}{
@@ -116,7 +109,6 @@ func TestRecursive(t *testing.T) {
 	})
 
 	t.Run("slice field", func(t *testing.T) {
-
 		data := struct {
 			Floats []float64
 		}{
@@ -138,7 +130,6 @@ func TestRecursive(t *testing.T) {
 	})
 
 	t.Run("field with precision tag", func(t *testing.T) {
-
 		n := 5.4321
 		data := struct {
 			Floats []float64 `precision:"1"`
@@ -164,7 +155,6 @@ func TestRecursive(t *testing.T) {
 	})
 
 	t.Run("math.Inf", func(t *testing.T) {
-
 		float := math.Inf(1)
 
 		err := round.Recursive(&float, 3)
@@ -174,7 +164,6 @@ func TestRecursive(t *testing.T) {
 	})
 
 	t.Run("negative math.Inf", func(t *testing.T) {
-
 		float := math.Inf(-1)
 
 		err := round.Recursive(&float, 3)
@@ -184,7 +173,6 @@ func TestRecursive(t *testing.T) {
 	})
 
 	t.Run("negative math.Inf", func(t *testing.T) {
-
 		float := math.Inf(-1)
 
 		err := round.Recursive(&float, 3)
@@ -194,7 +182,6 @@ func TestRecursive(t *testing.T) {
 	})
 
 	t.Run("handles errors", func(t *testing.T) {
-
 		f := math.NaN()
 		data := struct {
 			Floats []*float64
@@ -210,7 +197,6 @@ func TestRecursive(t *testing.T) {
 	})
 
 	t.Run("malformed precision tag", func(t *testing.T) {
-
 		var data struct {
 			Float float64 `precision:"abc"`
 		}
@@ -220,7 +206,6 @@ func TestRecursive(t *testing.T) {
 	})
 
 	t.Run("negative precision tag", func(t *testing.T) {
-
 		var data struct {
 			Float float64 `precision:"-1"`
 		}
